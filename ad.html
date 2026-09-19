@@ -3,84 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dynamic Master Ad</title>
+<title>Dynamic Ad</title>
 <style>
-  * {
-    box-sizing: border-box;
-  }
-  html, body {
+  body {
     margin: 0;
     padding: 0;
-    width: 100%;
     background: transparent;
-    overflow: hidden; /* iframe के अंदर फालतू स्क्रॉल या स्पेस हटाने के लिए */
-  }
-  .ad-container {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    text-align: center;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  /* इमेज, जीआईएफ और वीडियो के लिए परफेक्ट रिस्पॉन्सिव स्टाइल */
-  .ad-content {
+  .ad-box {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    cursor: pointer;
+  }
+  .ad-box img, .ad-box video {
     width: 100%;
     height: auto;
-    max-height: 100vh;
     display: block;
     border-radius: 8px;
     object-fit: contain;
-  }
-  /* यूट्यूब या अन्य iframe एड्स के लिए */
-  .ad-iframe-wrapper {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9; /* जरूरत के हिसाब से बदला जा सकता है */
-  }
-  .ad-iframe-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 8px;
-  }
-  .clickable {
-    cursor: pointer;
   }
 </style>
 </head>
 <body>
 
-  <!-- 
-    ====================================================================
-    यहीं से आप अपने ऐड का प्रकार बदल सकते हैं (इमेज, वीडियो, यूट्यूब या HTML)
-    ====================================================================
-  -->
+  <!-- यहाँ वह लिंक डालें जहाँ यूजर विज्ञापन पर क्लिक करने के बाद जाना चाहिए (जैसे WhatsApp, Telegram या वेबसाइट) -->
+  <div class="ad-box" onclick="window.parent.location.href='https://wa.me/91आपका_व्हाट्सएप_नंबर'">
+    
+    <!-- यहाँ अपने चुनावी पोस्टर या फोटो का डायरेक्ट इमेज लिंक डालें -->
+    <img src="https://imgh.in/host/zohyg7" alt="Election Poster">
 
-  <!-- [विकल्प 1: वर्तमान चुनावी पोस्टर और व्हाट्सएप लिंक (डिफాల్ट)] -->
-  <div class="ad-container clickable" onclick="window.parent.location.href='https://wa.me/917877980508'">
-    <img src="https://imgh.in/host/zohyg7" alt="Election Poster" class="ad-content">
+    <!-- अगर आपको फोटो की जगह वीडियो दिखाना हो, तो ऊपर वाले <img> को हटाकर नीचे वाले कोड को चालू (uncomment) कर सकते हैं: -->
+    <!-- 
+    <video src="আপনার_वीडियो_लिंक.mp4" autoplay loop muted playsinline></video> 
+    -->
+
   </div>
-
-
-  <!-- [विकल्प 2: अगर भविष्य में वीडियो (MP4) या GIF दिखाना हो तो ऊपर वाले को हटाकर इसे चालू करें] -->
-  <!--
-  <div class="ad-container">
-    <video src="आपकी_वीडियो_या_gif_लिंक.mp4" class="ad-content" autoplay loop muted playsinline></video>
-  </div>
-  -->
-
-
-  <!-- [विकल्प 3: अगर यूट्यूब वीडियो या कोई HTML ऐड दिखाना हो तो इसे चालू करें] -->
-  <!--
-  <div class="ad-container ad-iframe-wrapper">
-    <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe>
-  </div>
-  -->
 
 </body>
 </html>
