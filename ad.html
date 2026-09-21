@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Dynamic Ad</title>
 <style>
   body {
@@ -31,18 +34,26 @@
 </head>
 <body>
 
-  <!-- यहाँ वह लिंक डालें जहाँ यूजर विज्ञापन पर क्लिक करने के बाद जाना चाहिए (जैसे WhatsApp, Telegram या वेबसाइट) -->
+  <!-- यहाँ वह लिंक डालें जहाँ यूजर विज्ञापन पर क्लिक करने के बाद जाना चाहिए -->
   <div class="ad-box" onclick="window.parent.location.href='https://wa.me/917877980508'">
     
-    <!-- यहाँ अपने चुनावी पोस्टर या फोटो का डायरेक्ट इमेज लिंक डालें -->
-    <img src="https://imgh.in/host/e4m2v8" alt="Election Poster">
-
-    <!-- अगर आपको फोटो की जगह वीडियो दिखाना हो, तो ऊपर वाले <img> को हटाकर नीचे वाले कोड को चालू (uncomment) कर सकते हैं: -->
-    <!-- 
-    <video src="আপনার_वीडियो_लिंक.mp4" autoplay loop muted playsinline></video> 
-    -->
+    <!-- यहाँ अपने नए इमेज का डायरेक्ट लिंक डालें -->
+    <img id="adImage" src="https://www.imghost.se/uploads/S21l3Ffc.png" alt="Election Poster">
 
   </div>
+
+  <script>
+    // यह स्क्रिप्ट इमेज के लिंक में हर बार एक नया रैंडम नंबर जोड़ देगी ताकि ब्राउज़र या सर्वर पुरानी फाइल न उठाए
+    window.addEventListener('DOMContentLoaded', (event) => {
+      const img = document.getElementById('adImage');
+      if (img) {
+        let currentSrc = img.getAttribute('src');
+        // अगर लिंक में पहले से ? या & है तो उसके हिसाब से पैरामीटर जोड़ें
+        const separator = currentSrc.includes('?') ? '&' : '?';
+        img.src = currentSrc + separator + 'nocache=' + new Date().getTime() + Math.random();
+      }
+    });
+  </script>
 
 </body>
 </html>
