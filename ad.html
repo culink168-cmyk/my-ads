@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <title>Dynamic Ad</title>
@@ -34,25 +34,39 @@
 </head>
 <body>
 
-  <!-- यहाँ वह लिंक डालें जहाँ यूजर विज्ञापन पर क्लिक करने के बाद जाना चाहिए -->
+  <!-- विज्ञापन पर क्लिक करने पर खुलने वाला लिंक -->
   <div class="ad-box" onclick="window.parent.location.href='https://wa.me/917877980508'">
-    
-    <!-- यहाँ अपने नए इमेज का डायरेक्ट लिंक डालें -->
-    <img id="adImage" src="https://imgh.in/host/j1f2el" alt="Election Poster">
-
+    <!-- यहाँ इमेज लोड होगी -->
+    <img id="adImage" alt="Election Poster" style="display:none;">
   </div>
 
   <script>
-    // यह स्क्रिप्ट इमेज के लिंक में हर बार एक नया रैंडम नंबर जोड़ देगी ताकि ब्राउज़र या सर्वर पुरानी फाइल न उठाए
-    window.addEventListener('DOMContentLoaded', (event) => {
-      const img = document.getElementById('adImage');
-      if (img) {
-        let currentSrc = img.getAttribute('src');
-        // अगर लिंक में पहले से ? या & है तो उसके हिसाब से पैरामीटर जोड़ें
-        const separator = currentSrc.includes('?') ? '&' : '?';
-        img.src = currentSrc + separator + 'nocache=' + new Date().getTime() + Math.random();
-      }
-    });
+    // यहाँ अपना नया इमेज लिंक या फोटो का डायरेक्ट यूआरएल डालें
+    const imageToLoad = "https://www.imghost.se/uploads/S21l3Ffc.png";
+
+    // यह फंक्शन ब्राउज़र और GitHub के कैशे को पूरी तरह चकमा देकर बिल्कुल नया वर्जन लोड करेगा
+    function loadFreshImage() {
+      const imgElement = document.getElementById('adImage');
+      
+      // यूआरएल में एक यूनिक रैंडम टोकन और टाइमस्टैम्प जोड़ रहे हैं
+      const uniqueUrl = imageToLoad + (imageToLoad.includes('?') ? '&' : '?') + 'v=' + Date.now() + '_' + Math.random();
+
+      // Fetch API का उपयोग करके सीधे फ्रेश बाइट्स मंगा रहे हैं ताकि कैशे का कोई चक्कर न रहे
+      fetch(uniqueUrl, { cache: 'no-store' })
+        .then(response => response.blob())
+        .then(blob => {
+          const objectURL = URL.createObjectURL(blob);
+          imgElement.src = objectURL;
+          imgElement.style.display = 'block';
+        })
+        .catch(error => {
+          // अगर फेच में दिक्कत आए तो सीधे नॉर्मल नो-कैशे लिंक सेट कर दो
+          imgElement.src = uniqueUrl;
+          imgElement.style.display = 'block';
+        });
+    }
+
+    window.onload = loadFreshImage;
   </script>
 
 </body>
